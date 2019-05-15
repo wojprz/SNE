@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Globalization;
+﻿//Wojciech Przybyła
+//Cw 3
+//C#
+using System;
 
 namespace cw3
 {
@@ -163,7 +161,6 @@ namespace cw3
             y = f(W, z0pri);
             wyswietlanie(y);
             Console.WriteLine();
-           
             //z1 zaburzone
             Console.WriteLine("z1 zaburzone");
             Console.WriteLine("***********************************************************");
