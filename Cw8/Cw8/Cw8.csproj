@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E6BEDF6E-DFDF-45F4-9D90-909ECA0848E9}</ProjectGuid>
+    <ProjectGuid>{C743D0EF-187E-4E19-9A3C-CF3A5EE7800D}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Cw8</RootNamespace>
-    <AssemblyName>Cw8</AssemblyName>
+    <RootNamespace>cw8</RootNamespace>
+    <AssemblyName>cw8</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

@@ -108,7 +108,7 @@ namespace cw8
                 double l = r.NextDouble();
                 if (l >= 0 && l <= F(u[i])) x[i] = 1;
                 else if (l > F(u[i]) && l <= 1) x[i] = 0;
-                
+
 
                 for (int j = 0; j < 25; j++)
                 {
