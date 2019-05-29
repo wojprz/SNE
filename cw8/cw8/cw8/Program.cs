@@ -8,8 +8,7 @@ namespace cw8
 {
     class Program
     {
-        static double temperatura = 0.5555
-            ;
+        static double temperatura = 1.5;
         static double[] PrepXS()
         {
             double[] xs = new double[25];
@@ -75,14 +74,17 @@ namespace cw8
 
         static double[] StartX()
         {
+            int g;
             double[] x = new double[25];
             Random r = new Random();
+            
             for (int i = 0; i < 25; i++)
             {
-                if ((r.Next() % 2) == 0) x[i] = 0;
-                else if ((r.Next() % 2) == 1) x[i] = 1;
+                g = r.Next();
+                if ((g % 2) == 0) x[i] = 0;
+                else if ((g % 2) == 1) x[i] = 1;
             }
-
+           
             return x;
         }
         static double[][] PrepWij(double[][] Cij)
@@ -100,25 +102,28 @@ namespace cw8
             return w;
         }
 
-        static double[] NextX(double[] u, double[] x)
+        static double[] NextX(double[] u)
         {
+            double[] x = new double[25];
             for (int i = 0; i < 25; i++)
             {
-                Random r = new Random();
+                Random r = new Random((int)DateTime.Now.Ticks);
                 double l = r.NextDouble();
-                if (l >= 0 && l <= F(u[i])) x[i] = 1;
-                else if (l > F(u[i]) && l <= 1) x[i] = 0;
+                if (l <= F(u[i])) x[i] = 1;
+                else if (l > F(u[i]) ) x[i] = 0;
 
 
-                for (int j = 0; j < 25; j++)
-                {
-                    if (x[j] == 0) Console.Write(" [ ] ");
-                    else Console.Write(" [*] ");
-                    if (j % 5 == 4) Console.WriteLine();
-                }
-                Console.ReadKey();
-                Console.WriteLine();
-                Console.WriteLine();
+                //for (int j = 0; j < 25; j++)
+                //{
+                //    if (x[j] == 0) Console.Write(" [ ] ");
+                //    else Console.Write(" [*] ");
+                //    if (j % 5 == 4) Console.WriteLine();
+                //}
+                //Console.ReadKey();
+                //Console.WriteLine();
+                //Console.WriteLine();
+
+
             }
             return x;
         }
@@ -137,20 +142,34 @@ namespace cw8
         static void Main(string[] args)
         {
             double[] xs = PrepXS();
+            
+            double[] x = StartX();
+            
             double[][] cij = PrepCij(xs);
             double[][] wij = PrepWij(cij);
             double[] theta = PrepTheta(cij);
 
-            double[] x = StartX();
             double[] u = PrepU(wij, x, theta);
-
+            
             wyswietlanie(x);
             Console.WriteLine();
             Console.WriteLine();
+            while (true)
+            {
+                
+                
+              
+                x = NextX(u);
+                u = PrepU(wij, x, theta);
+                // Console.WriteLine("Iteracja:" + ct);
+                wyswietlanie(x);
+                Console.WriteLine();
+                Console.ReadKey();
+            }
 
-            x = NextX(u, x);
-            u = PrepU(wij, x, theta);
-
+            Console.ReadKey();
+            Console.WriteLine();
+            Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
 
@@ -158,6 +177,4 @@ namespace cw8
             Console.ReadKey();
         }
     }
-
-
 }

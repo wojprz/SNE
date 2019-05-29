@@ -1,4 +1,7 @@
-﻿using System;
+﻿//Wojciech Przybyła
+//C#
+//CW-7
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -109,8 +112,10 @@ namespace cw7
                 Console.ReadKey();
                 Console.WriteLine();
                 Console.WriteLine();
+                if (Console.ReadKey().Key == ConsoleKey.Spacebar) break;
                 }
-                return x;
+            Console.WriteLine("Press spacebar to exit loop!");
+            return x;
             }
 
             static void wyswietlanie(double[] x)
@@ -137,10 +142,13 @@ namespace cw7
                 wyswietlanie(x);
                 Console.WriteLine();
                 Console.WriteLine();
-
+            while (true)
+            {
                 x = NextX(u, x);
                 u = PrepU(wij, x, theta);
 
+                if (Console.ReadKey().Key == ConsoleKey.Spacebar) break;
+            }
                 Console.WriteLine();
                 Console.WriteLine();
 
