@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace cw9
 {
@@ -74,19 +72,19 @@ namespace cw9
 
         static void Main(string[] args)
         {
-            
-            int L = 10;
+
+            int L = 6;
             int l = 0;
 
-            int M = 200;
+            int M = 100;
             int m = 0;
 
             double T;
-            int T0 = 10;
+            int T0 = 5;
             Random r = new Random();
-            int[] s = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+            int[] s = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
             IEnumerable<IEnumerable<int>> S = GetPermutations(Enumerable.Range(1, 10), 10);
-            
+
             //permute(s, 0, 9);
             int[] St = new int[10];
             List<int> stat = new List<int>();
@@ -99,12 +97,12 @@ namespace cw9
 
             w = r.Next(0, 3628799);
             stat.Add(w);
-            St = (int[])S.ElementAt(w).ToArray();
+            St = S.ElementAt(w).ToArray();
             T = T0;
 
-            while(l < L)
+            while (l < L)
             {
-                while(m < M)
+                while (m < M)
                 {
                     w_prim = r.Next(0, 3628799);
 
@@ -112,10 +110,11 @@ namespace cw9
                     {
                         w_prim = r.Next(0, 3628799);
                     }
-                    S_prim = (int[])S.ElementAt(w_prim).ToArray();
+                    S_prim = S.ElementAt(w_prim).ToArray();
                     stat.Add(w_prim);
 
                     delta_E = E_prim(S_prim) - E_prim(St);
+                    //delta_E = E(S_prim) - E(St);
                     double tem = r.NextDouble();
                     if ((delta_E < 0) || (tem < Math.Exp(-1 * (delta_E / T))))
                     {
@@ -126,19 +125,19 @@ namespace cw9
                 }
                 m = 0;
                 T = T0 / (1 + Math.Log(1 + l));
-                stat.Clear();
+                //stat.Clear();
             }
             Console.WriteLine("S:");
-            for(int i=0;i<10;i++)
+            for (int i = 0; i < 10; i++)
             {
                 Console.Write(St[i] + ", ");
             }
             Console.WriteLine();
             Console.WriteLine("E(S): " + E(St));
             Console.ReadKey();
-            
 
-           
+
+
         }
     }
 }
