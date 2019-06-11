@@ -8,7 +8,8 @@ namespace cw8
 {
     class Program
     {
-        static double temperatura = 1.5;
+        static Random r = new Random((int)DateTime.Now.Ticks);
+        static double temperatura = 20.5;
         static double[] PrepXS()
         {
             double[] xs = new double[25];
@@ -27,7 +28,7 @@ namespace cw8
 
         static double F(double u)
         {
-            return 1 / (1 + Math.Exp(-1 * (u / temperatura)));
+            return 1 / (1 + Math.Exp(-1 * u / temperatura));
         }
 
         static double[][] PrepCij(double[] xs)
@@ -111,19 +112,6 @@ namespace cw8
                 double l = r.NextDouble();
                 if (l <= F(u[i])) x[i] = 1;
                 else if (l > F(u[i]) ) x[i] = 0;
-
-
-                //for (int j = 0; j < 25; j++)
-                //{
-                //    if (x[j] == 0) Console.Write(" [ ] ");
-                //    else Console.Write(" [*] ");
-                //    if (j % 5 == 4) Console.WriteLine();
-                //}
-                //Console.ReadKey();
-                //Console.WriteLine();
-                //Console.WriteLine();
-
-
             }
             return x;
         }
@@ -156,11 +144,11 @@ namespace cw8
             Console.WriteLine();
             while (true)
             {
-                
-                
-              
-                x = NextX(u);
+
+
                 u = PrepU(wij, x, theta);
+                x = NextX(u);
+                
                 // Console.WriteLine("Iteracja:" + ct);
                 wyswietlanie(x);
                 Console.WriteLine();

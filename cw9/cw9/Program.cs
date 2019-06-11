@@ -6,42 +6,38 @@ namespace cw9
 {
     class Program
     {
-        //static List<int[]> S = new List<int[]>();
-        //static void permute(int[] s, int l, int r)
-        //{
-        //    if (l == r)
-        //        S.Add(s);
-        //    else
-        //    {
-        //        for (int i = l; i <= r; i++)
-        //        {
-        //            s = swap(s, l, i);
-        //            permute(s, l + 1, r);
-        //            s = swap(s, l, i);
-        //        }
-        //    }
+        static Random r = new Random();
+        static int[] temp = new int[10];
+        static List<int[]> S = new List<int[]>();
 
-        //}
-
-        //static int[] swap(int[] a, int i, int j)
-        //{
-        //    int temp;
-        //    int[] intArray = a;
-        //    temp = intArray[i];
-        //    intArray[i] = intArray[j];
-        //    intArray[j] = temp;
-        //    return intArray;
-        //}
-
-        static IEnumerable<IEnumerable<T>>
-            GetPermutations<T>(IEnumerable<T> list, int length)
+        static void permutation(int[] a, int size, int n)
         {
-            if (length == 1) return list.Select(t => new T[] { t });
 
-            return GetPermutations(list, length - 1)
-                .SelectMany(t => list.Where(e => !t.Contains(e)),
-                    (t1, t2) => t1.Concat(new T[] { t2 }));
+            if (size == 1)
+            {
+                for (int i = 0; i < 10; i++)
+                    temp[i] = a[i];
+                S.Add(temp);
+            }
+ 
+            for (int i = 0; i < size; i++)
+            {
+                permutation(a, size - 1, n);
+                if (size % 2 == 1)
+                {
+                    int temp = a[0];
+                    a[0] = a[size - 1];
+                    a[size - 1] = temp;
+                }
+                else
+                {
+                    int temp = a[i];
+                    a[i] = a[size - 1];
+                    a[size - 1] = temp;
+                }
+            }
         }
+
 
         static int D(int sa, int sb)
         {
@@ -73,44 +69,55 @@ namespace cw9
         static void Main(string[] args)
         {
 
-            int L = 6;
+            int L = 10;
             int l = 0;
 
-            int M = 100;
+            int M = 200;
             int m = 0;
 
             double T;
-            int T0 = 5;
-            Random r = new Random();
+            int T0 = 1;
+            
             int[] s = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-            IEnumerable<IEnumerable<int>> S = GetPermutations(Enumerable.Range(1, 10), 10);
+  
 
-            //permute(s, 0, 9);
+            permutation(s, s.Length, s.Length);
+
             int[] St = new int[10];
             List<int> stat = new List<int>();
             int w;
+            int count = S.Count();
 
             int[] S_prim = new int[10];
             int delta_E;
 
             int w_prim;
+            byte[] buf = new byte[5];
+            r.NextBytes(buf);
+            w = BitConverter.ToInt32(buf, 0);
 
-            w = r.Next(0, 3628799);
-            stat.Add(w);
-            St = S.ElementAt(w).ToArray();
+                r.NextBytes(buf);
+                w = Math.Abs(BitConverter.ToInt32(buf, 0) % 3628799);
+
+                stat.Add(w);
+
+            St = S[w];
             T = T0;
 
             while (l < L)
             {
                 while (m < M)
                 {
-                    w_prim = r.Next(0, 3628799);
+                    r.NextBytes(buf);
+                    w_prim = Math.Abs(BitConverter.ToInt32(buf, 0) % 3628799);
 
                     while (stat.Contains(w_prim))
                     {
-                        w_prim = r.Next(0, 3628799);
+                        r.NextBytes(buf);
+                        w_prim = Math.Abs(BitConverter.ToInt32(buf, 0) % 3628799);
                     }
-                    S_prim = S.ElementAt(w_prim).ToArray();
+
+                    S_prim = S[w_prim];
                     stat.Add(w_prim);
 
                     delta_E = E_prim(S_prim) - E_prim(St);
@@ -125,7 +132,6 @@ namespace cw9
                 }
                 m = 0;
                 T = T0 / (1 + Math.Log(1 + l));
-                //stat.Clear();
             }
             Console.WriteLine("S:");
             for (int i = 0; i < 10; i++)
